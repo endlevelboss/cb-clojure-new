@@ -1,7 +1,11 @@
 (ns cb-test.database
   (:require [reagent.core :as r]))
 
-(defonce mystate (r/atom 0))
+(defonce mystate (r/atom {}))
+
+(defonce selected-user-a (r/atom nil))
+
+(defonce selecter-user-b (r/atom nil))
 
 (defonce selected-chromosome (r/atom 1))
 

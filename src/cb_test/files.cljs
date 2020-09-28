@@ -31,6 +31,15 @@
 (defn cb-map [data]
   (map to-int-map data))
 
+(defn update-state [data]
+  (let [k (:name (first data))
+        s @db/mystate]
+    ;; (println k)
+    (->> (assoc s k data)
+         (reset! db/mystate))
+    (reset! db/selected-user-a k)
+    (reset! db/selecter-user-b k)))
+
 (go-loop []
   (let [reader (js/FileReader.)
         file (<! upload)]
@@ -39,7 +48,7 @@
     (recur)))
 
 (go-loop []
-  (reset! db/mystate (cb-map (rest (csv/read-csv (<! file-read)))))
+  (update-state (cb-map (rest (csv/read-csv (<! file-read)))))
   (recur))
 
 
